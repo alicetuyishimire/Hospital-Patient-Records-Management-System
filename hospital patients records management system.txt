@@ -1,0 +1,114 @@
+Project Title
+ 
+Hospital Patient Records Management System
+ 
+Project Overview 
+
+The Hospital Patient Records Management System is a database project designed to 
+manage patient information, medical history, and appointments in a hospital environment.
+ 
+Many hospitals still rely on paper-based or poorly organized systems, which leads to errors, 
+data loss, and slow access to patient records. 
+
+This project focuses on designing and implementing a relational database using MySQL to 
+securely store and manage patient records in an efficient and structured way.
+
+
+ SQL Implementation 
+
+Using MySQL, write SQL queries to: 
+
+1. Create the database. 
+2. Create all required tables with proper constraints. 
+3. Insert the provided sample data. 
+4. Retrieve patient medical history. 
+5. List patients who visited the hospital on a specific date. 
+6. Update patient information. 
+7. Delete a patient record. 
+8. Use JOINs to generate patient reports.
+
+ANSUERS OF ALL QUESTIONS.
+
+1. Create  and use the database. 
+
+use hospital_db ;
+
+2. Create all required tables with proper constraints.
+
+-- patients table creation.
+
+create table patients(
+ patient_id int not null ,
+ first_name varchar(50),
+ last_name varchar(50),
+ gender varchar(10),
+ date_of_birth date ,
+ phone varchar(15),
+ primary key (patient_id));
+
+-- doctors table creation.
+
+
+ create  table doctors (
+ doctor_id int not null,
+ doctor_name varchar(100),
+ specialization varchar(100),
+ primary key (doctor_id));
+
+-- appointments table creation.
+
+
+ create table appointments (
+ appointment_id int not null,
+ patient_id int not null,
+ doctor_id int not null,
+ appointment_date date,
+ diagnosis varchar (200),
+ primary key (appointment_id));
+
+3. Insert the provided sample data.
+
+
+-- records of patients table.
+
+ insert into patients values (1, "alice", "uwimana" ,"female" , "2000-05-10" , "0788001111");
+  insert into patients values (2, "jean", "ndayishimiye" ,"male" , "1998-09-15" , "0788002222");
+   insert into patients values (3, "grace", "mukamana" ,"female" , "2002-01-20" , "0788003333");
+
+-- records of doctors table.
+
+insert into doctors values ( 1, "dr.mugisha", "general medicine");
+insert into doctors values ( 2, "dr.uwase", "pediatrics");
+insert into doctors values ( 3, "dr.habimana", "surgery");
+
+-- records of appointments table.
+
+insert into appointments values ( 1, 1, 1, "2024-01-10" ,"malaria");
+insert into appointments values ( 2, 2, 2, "2024-01-12" ,"fiu");
+insert into appointments values ( 3, 3, 3, "2024-01-15" ,"stomach pain");
+
+4. Retrieve patient medical history.
+
+select * from patients;
+
+5. List patients who visited the hospital on a specific date.
+
+select patients.patient_id, patients.first_name, patients.last_name, patients.gender, patients.date_of_birth, patients.phone,
+appointments.appointment_date, appointments.diagnosis from appointments inner join patients on appointments.patient_id=patients.patient_id;
+
+6. Update patient information.
+
+update patients set last_name= "nkotanyi" where patient_id=1;
+
+select * from patients;
+
+ 
+7. Delete a patient record.
+
+truncate patients;
+
+8. Use JOINs to generate patient reports.
+
+select patients.patient_id, patients.first_name, patients.last_name, patients.gender, patients.date_of_birth, patients.phone,
+appointments.appointment_date, appointments.diagnosis, doctors.doctor_name , doctors.specialization from appointments inner join patients on appointments.patient_id=patients.patient_id inner join doctors on appointments.doctor_id=doctors.doctor_id;
+
